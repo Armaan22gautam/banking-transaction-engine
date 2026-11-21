@@ -1,0 +1,30 @@
+<configuration>
+  <!-- logfmt-style structured lines: easy to grep and parse. Credentials are never logged. -->
+  <property name="PATTERN" value="ts=%d{ISO8601} level=%level thread=%thread txnId=%X{txnId:-NA} op=%X{op:-NA} logger=%logger{0} %msg%n"/>
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>${CONSOLE_LOG_LEVEL:-INFO}</level>
+    </filter>
+    <encoder><pattern>${PATTERN}</pattern></encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>logs/bank.log</file>
+    <append>true</append>
+    <encoder><pattern>${PATTERN}</pattern></encoder>
+  </appender>
+
+  <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+    <queueSize>16384</queueSize>
+    <discardingThreshold>0</discardingThreshold>
+    <appender-ref ref="FILE"/>
+  </appender>
+
+  <logger name="com.bank.engine" level="${APP_LOG_LEVEL:-INFO}"/>
+
+  <root level="WARN">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="ASYNC_FILE"/>
+  </root>
+</configuration>

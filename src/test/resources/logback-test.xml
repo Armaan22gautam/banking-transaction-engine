@@ -1,0 +1,7 @@
+<configuration>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder><pattern>ts=%d{ISO8601} level=%level thread=%thread txnId=%X{txnId:-NA} op=%X{op:-NA} %msg%n</pattern></encoder>
+  </appender>
+  <logger name="com.bank.engine" level="WARN"/>
+  <root level="WARN"><appender-ref ref="CONSOLE"/></root>
+</configuration>

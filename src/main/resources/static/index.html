@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bank Engine</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <p class="eyebrow">Transaction console</p>
+      <h1>Bank Engine</h1>
+    </div>
+    <div class="status"><span id="health-dot"></span><span id="health-text">Checking</span></div>
+  </header>
+
+  <main>
+    <section class="panel transaction-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">New request</p>
+          <h2>Create transaction</h2>
+        </div>
+      </div>
+
+      <form id="transaction-form">
+        <label>Transaction ID<input id="transaction-id" maxlength="64" required placeholder="TXN-001"></label>
+        <label>Type
+          <select id="type">
+            <option value="DEPOSIT">Deposit</option>
+            <option value="WITHDRAWAL">Withdrawal</option>
+            <option value="TRANSFER">Transfer</option>
+          </select>
+        </label>
+        <label id="source-field">Source account
+          <input id="source-account" type="number" min="1" placeholder="1">
+        </label>
+        <label id="destination-field">Destination account
+          <input id="destination-account" type="number" min="1" value="1">
+        </label>
+        <label>Amount
+          <input id="amount" type="number" min="0.01" step="0.01" required placeholder="100.00">
+        </label>
+        <button type="submit">Process transaction</button>
+      </form>
+      <div id="result" class="result" hidden></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Live balances</p>
+          <h2>Accounts</h2>
+        </div>
+        <button id="reset-button" class="secondary" type="button">Reset &amp; seed</button>
+      </div>
+      <div id="accounts" class="accounts"></div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Audit trail</p>
+          <h2>Transactions</h2>
+        </div>
+        <button id="refresh-button" class="secondary" type="button">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Type</th><th>Amount</th><th>Status</th><th>Accounts</th><th>Outcome</th></tr></thead>
+          <tbody id="transactions"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
